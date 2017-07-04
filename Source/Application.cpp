@@ -3,6 +3,7 @@
 #include "States/SPlaying.h"
 
 #include <cstdint>
+#include <iostream>
 
 Application::Application(std::string&& appName)
 :   m_window    ({1280, 720}, std::move(appName))
@@ -15,7 +16,7 @@ Application::Application(std::string&& appName)
 void Application::runMainLoop()
 {
     constexpr uint32_t  TICKS_PER_FRAME = 30;
-    const sf::Time      MS_PER_TICK     = sf::seconds(1 / TICKS_PER_FRAME);
+    const sf::Time      MS_PER_TICK     = sf::seconds((float)1 / (float)TICKS_PER_FRAME);
 
     uint32_t tickCount = 0;
 
@@ -34,16 +35,12 @@ void Application::runMainLoop()
         handleEvents();
         currentState().handleInput  ();
 
-
-
         while (tickLag >= MS_PER_TICK)
         {
             tickCount++;
             currentState().fixedUpdate  (elapsed.asSeconds());
             tickLag -= MS_PER_TICK;
-
         }
-
         currentState().update       (elapsed.asSeconds());
 
         m_window.clear();
