@@ -13,6 +13,7 @@ Application::Application(std::string&& appName)
     pushState<StatePlaying>(*this);
 }
 
+
 void Application::runMainLoop()
 {
     constexpr uint32_t  TICKS_PER_FRAME = 30;
@@ -48,6 +49,7 @@ void Application::runMainLoop()
         m_window.display();
     }
 }
+
 
 void Application::handleEvents()
 {
