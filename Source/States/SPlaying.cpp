@@ -1,5 +1,7 @@
 #include "SPlaying.h"
 
+#include "../ResourceManager/ResourceHolder.h"
+
 
 
 StatePlaying::StatePlaying(Application& application)

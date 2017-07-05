@@ -15,6 +15,13 @@ class ResourceHolder
             return res;
         }
 
+        ResourceHolder(const ResourceHolder& other) = delete;
+        ResourceHolder(ResourceHolder&& other) = delete;
+
+        ResourceHolder& operator=(const ResourceHolder& other) = delete;
+        ResourceHolder& operator=(ResourceHolder&& other) = delete;
+
+
         ResourceManager<sf::Texture>        textures;
         ResourceManager<sf::Font>           fonts;
         ResourceManager<sf::SoundBuffer>    soundBuffers;
