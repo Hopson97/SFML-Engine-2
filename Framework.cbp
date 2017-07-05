@@ -49,6 +49,8 @@
 		<Unit filename="Source/Application.cpp" />
 		<Unit filename="Source/Application.h" />
 		<Unit filename="Source/DisplayManager.h" />
+		<Unit filename="Source/ResourceManager/ResourceHolder.h" />
+		<Unit filename="Source/ResourceManager/ResourceManager.h" />
 		<Unit filename="Source/States/SBase.cpp" />
 		<Unit filename="Source/States/SBase.h" />
 		<Unit filename="Source/States/SPlaying.cpp" />
