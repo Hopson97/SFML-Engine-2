@@ -8,7 +8,7 @@ template<typename Resource>
 class ResourceManager
 {
     public:
-        ResourceManager(const std::string& folder, const std::string& ext) noexcept
+        ResourceManager(const std::string& folder, const std::string& ext)
         :   m_folder    (folder)
         ,   m_ext       (ext)
         { }
@@ -17,13 +17,8 @@ class ResourceManager
         {
             if(!exists(fileName))
             {
-                auto str = buildString(fileName);
-                Resource r;
-                r.loadFromFile(str);
-                m_resourceMap.emplace(fileName, r);
-
+                addResource(fileName);
             }
-
             return m_resourceMap[fileName];
         }
 
@@ -33,14 +28,22 @@ class ResourceManager
         }
 
     private:
-        std::string buildString(const std::string& fileName) noexcept
+        void addResource(const std::string& name)
         {
-            return m_folder + fileName;
+            auto str = buildString(name);
+            Resource r;
+            r.loadFromFile(str);
+            m_resourceMap.emplace(name, r);
         }
 
-        bool exists(const std::string& fileName)
+        std::string buildString(const std::string& fileName) const
         {
-            return m_resourceMap != m_resourceMap.end();
+            return m_folder + fileName + "." + m_ext;
+        }
+
+        bool exists(const std::string& fileName) const
+        {
+            return m_resourceMap.find(fileName) != m_resourceMap.end();
         }
 
         std::unordered_map<std::string, Resource> m_resourceMap;

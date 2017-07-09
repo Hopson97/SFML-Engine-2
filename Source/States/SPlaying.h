@@ -15,6 +15,9 @@ class StatePlaying : public StateBase
         void update         (float dt);
         void fixedUpdate    (float dt);
         void draw           (sf::RenderWindow& window);
+
+    private:
+        sf::RectangleShape m_sprite;
 };
 
 #endif // SPLAYING_INCLUDED

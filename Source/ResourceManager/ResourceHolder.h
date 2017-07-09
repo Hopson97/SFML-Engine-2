@@ -9,11 +9,10 @@
 class ResourceHolder
 {
     public:
-        static ResourceHolder& get()
-        {
-            static ResourceHolder res;
-            return res;
-        }
+        static ResourceHolder& get();
+        static const sf::Texture&       getTexure   (const std::string& name);
+        static const sf::Font&          getFont     (const std::string& name);
+        static const sf::SoundBuffer&   getSoundBuff(const std::string& name);
 
         ResourceHolder(const ResourceHolder& other) = delete;
         ResourceHolder(ResourceHolder&& other) = delete;
@@ -27,11 +26,7 @@ class ResourceHolder
         ResourceManager<sf::SoundBuffer>    soundBuffers;
 
     private:
-        ResourceHolder() noexcept
-        :   textures        ("res/textures/",   "png")
-        ,   fonts           ("res/fonts/",      "ttf")
-        ,   soundBuffers    ("res/sfx",         "ogg")
-        { }
+        ResourceHolder() noexcept;
 };
 
 #endif // RESOURCEHOLDER_INCLUDED
