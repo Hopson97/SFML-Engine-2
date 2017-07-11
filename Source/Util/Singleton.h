@@ -3,10 +3,10 @@
 
 class Singleton
 {
-public:
+    public:
 
-private:
-    Singleton() = delete;
+    private:
+        Singleton() = delete;
 };
 
 #endif // SINGLETON_H_INCLUDED

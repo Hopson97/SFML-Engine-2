@@ -9,7 +9,6 @@ Application::Application(std::string&& appName)
 :   m_window    ({1280, 720}, std::move(appName))
 {
     m_window.setFramerateLimit(60);
-
     pushState<StatePlaying>(*this);
 }
 
@@ -31,15 +30,15 @@ void Application::runMainLoop()
         auto currentTime    = timer.getElapsedTime();
         auto elapsed        = currentTime - lastTime;
         lastTime            = currentTime;
-        tickLag             = elapsed;
+        tickLag             += elapsed;
 
         handleEvents();
-        currentState().handleInput  ();
+        currentState().handleInput ();
 
         while (tickLag >= MS_PER_TICK)
         {
             tickCount++;
-            currentState().fixedUpdate  (elapsed.asSeconds());
+            currentState().fixedUpdate (elapsed.asSeconds());
             tickLag -= MS_PER_TICK;
         }
         currentState().update       (elapsed.asSeconds());
