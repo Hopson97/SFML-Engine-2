@@ -27,25 +27,26 @@ void Application::runMainLoop()
 
     while (m_window.isOpen())
     {
+        auto& state         = currentState();
         auto currentTime    = timer.getElapsedTime();
         auto elapsed        = currentTime - lastTime;
         lastTime            = currentTime;
         tickLag             += elapsed;
 
-        handleEvents();
-        currentState().handleInput ();
+        state.handleInput();
 
         while (tickLag >= MS_PER_TICK)
         {
             tickCount++;
-            currentState().fixedUpdate (elapsed.asSeconds());
+            state.fixedUpdate (elapsed.asSeconds());
             tickLag -= MS_PER_TICK;
         }
-        currentState().update       (elapsed.asSeconds());
+        state.update (elapsed.asSeconds());
 
         m_window.clear();
         currentState().draw (m_window);
         m_window.display();
+        handleEvents();
     }
 }
 
