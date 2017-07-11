@@ -3,7 +3,29 @@
 
 #include <iostream>
 
-void Animation::addFrame(const sf::IntRect& frame, float timeToNextFrame)
+Animation::Animation(std::vector<Frame> frames)
+:   m_frames (std::move(frames))
+{ }
+
+void Animation::addFrames( const sf::Vector2i& frameSize,
+                           const sf::Vector2i& firstFrame,
+                           int numberOfFrames,
+                           sf::Time timeDifference)
+
+{
+    auto width  = frameSize.x;
+    auto height = frameSize.y;
+
+    auto x = firstFrame.x;
+    auto y = firstFrame.y;
+
+    for (int f = 0; f < numberOfFrames; f++, x += width)
+    {
+        addFrame({x, y, width, height}, timeDifference);
+    }
+}
+
+void Animation::addFrame(const sf::IntRect& frame, sf::Time timeToNextFrame)
 {
     if (timeToNextFrame > m_longestFrameTime)
     {
@@ -15,7 +37,7 @@ void Animation::addFrame(const sf::IntRect& frame, float timeToNextFrame)
 
 const sf::IntRect& Animation::getFrame()
 {
-    if (m_timer.getElapsedTime().asSeconds() >= m_frames[m_currentFrame].timeToNextFrame)
+    if (m_timer.getElapsedTime() >= m_frames[m_currentFrame].timeToNextFrame)
     {
         m_currentFrame++;
         if (m_currentFrame == m_frames.size())
