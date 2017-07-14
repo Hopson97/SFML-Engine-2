@@ -18,7 +18,7 @@ class Application
         template<typename T, typename... Args>
         void pushState(Args&&... args)
         {
-            m_states.push_back(std::make_unique<T>(std::forward<T>(args...)));
+            m_states.push_back(std::make_unique<T>(std::forward<Args>(args)...));
         }
 
     private:
